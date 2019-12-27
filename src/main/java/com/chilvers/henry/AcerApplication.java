@@ -1,6 +1,8 @@
 package com.chilvers.henry;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +54,8 @@ public class AcerApplication {
         }
     }
 
-    private static void chooseDaysToOpen(Game game) {
-        //String[] phases = {"|", "/", "-", "\\"};
+    private static void chooseDaysToOpen(Game game) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
 
         while (game.stillHasAvailableDaysToPick()) {
@@ -66,23 +68,21 @@ public class AcerApplication {
             }
 
             //2. "Player X, hit <space bar> to stop the spinner" (have spinning icon)
-            //System.console().writer().println(currentPlayer.getName() + ", hit <space bar> to stop the spinner ");
-            System.console().writer().println(currentPlayer.getName() + ", hit <enter> to pick a number");
+            System.out.println(currentPlayer.getName() + ", hit <enter> to pick a number");
 
             //3. On <space bar>, get the next day from the shuffled list of days.
-            //String input = System.console().readLine();
-            System.console().readLine();
+            reader.readLine();
             //if (input.equals(" ")) {
                 int dayToOpen = game.getShuffledDays().get(0);
 
                 //4. Assign random number to Player X.
-                System.console().writer().println(currentPlayer.getName() + ", you got day " + dayToOpen);
-                System.console().writer().println();
+                System.out.println(currentPlayer.getName() + ", you got day " + dayToOpen);
+                System.out.println();
                 currentPlayer.getDaysToChoose().add(dayToOpen);
 
-                game.getShuffledDays().remove(new Integer(dayToOpen));
+                game.getShuffledDays().remove(0);// .remove(dayToOpen);
                 //System.console().writer().write(game.getShuffledDays().toString() + "\n");
-                System.console().writer().println("[Days remaining: " + game.getShuffledDays().size() + "]");
+                System.out.println("[Days remaining: " + game.getShuffledDays().size() + "]");
                 //Update Player Table...
             //} else {
 //                for (String phase : phases) {
@@ -116,9 +116,12 @@ public class AcerApplication {
         return (Collector<T, ?, List<T>>) SHUFFLER;
     }
 
-    private static Game setupGame() {
-        int numberOfPlayers = Integer.parseInt(System.console().readLine(NUMBER_OF_PLAYERS_PROMPT));
-        int numberOfDays = Integer.parseInt(System.console().readLine(NUMBER_OF_DAYS_PROMPT));
+    private static Game setupGame() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println(NUMBER_OF_PLAYERS_PROMPT);
+        int numberOfPlayers = Integer.parseInt(reader.readLine());
+        System.out.println(NUMBER_OF_DAYS_PROMPT);
+        int numberOfDays = Integer.parseInt(reader.readLine());
 
         List<Integer> shuffledDays = IntStream.rangeClosed(1, numberOfDays)
                 .boxed()
@@ -127,7 +130,7 @@ public class AcerApplication {
 
         for (int r = 1; r < numberOfDays; r++) {
             shuffledDays = shuffledDays.stream().collect(toShuffledList());
-            //System.console().writer().write(shuffledDays.toString() + "\n");
+            //System.out.write(shuffledDays.toString() + "\n");
         }
 
         Game game = Game.builder()
@@ -141,11 +144,13 @@ public class AcerApplication {
         return game;
     }
 
-    private static void setupPlayers(Game game) {
+    private static void setupPlayers(Game game) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<Player> players = new ArrayList<>();
 
         for (int i = 1; i <= game.getNumberOfPlayers(); i++) {
-            String playerName = System.console().readLine("Name of Player " + i + "? ");
+            System.out.println("Name of Player " + i + "? ");
+            String playerName = reader.readLine();
 
             Player player = Player.builder()
                     .position(i)
@@ -168,22 +173,22 @@ public class AcerApplication {
     }
 
     private static void printWelcome() {
-        System.console().writer().println(WELCOME);
+        System.out.println(WELCOME);
     }
 
     private static void printResults() {
-        System.console().writer().println(RESULTS);
+        System.out.println(RESULTS);
     }
 
     private static void printLogo(ASCIIArtGenerator artGen) throws Exception {
-        System.console().writer().println();
+        System.out.println();
         artGen.printTextArt(APP_NAME, ASCIIArtGenerator.ART_SIZE_MEDIUM);
-        System.console().writer().println("( Advent           Calendar          Enjoyment        Randomizer )");
-        System.console().writer().println();
+        System.out.println("( Advent           Calendar          Enjoyment        Randomizer )");
+        System.out.println();
     }
 
     private static void printReady() {
-        System.console().writer().println(READY_PROMPT);
+        System.out.println(READY_PROMPT);
     }
 
     private static void printPlayerTable(Game game) {
@@ -191,17 +196,17 @@ public class AcerApplication {
         //console.writer().println(StringUtils.repeat("\u2500",50));
         String horizontalSeparator = new String(new char[40]).replace('\0', '\u2500');
 
-        System.console().writer().printf("\u250C%s\u2510\n", horizontalSeparator);
-        System.console().writer().printf("\u2502%-10s|%20s         \u2502\n", "Player", " Days to Open");
-        System.console().writer().printf("\u250C%s\u2510\n", horizontalSeparator);
+        System.out.printf("\u250C%s\u2510\n", horizontalSeparator);
+        System.out.printf("\u2502%-10s|%20s         \u2502\n", "Player", " Days to Open");
+        System.out.printf("\u250C%s\u2510\n", horizontalSeparator);
 
         game.getPlayers()
-                .forEach(p -> System.console().writer()
+                .forEach(p -> System.out
                         .printf("%s%-10s| %s           %s\n",
                                 "\u2502",
                                 p.getName(),
                                 p.getDaysToChoose().stream().sorted().map(Object::toString).collect(Collectors.joining(",")),
                                 "\u2502"));
-        System.console().writer().println("\u2514" + horizontalSeparator + "\u2518");
+        System.out.println("\u2514" + horizontalSeparator + "\u2518");
     }
 }
