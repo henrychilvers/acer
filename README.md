@@ -9,7 +9,7 @@ who gets to pick which door to open.
 Include logo/demo screenshot etc.
 
 ## Tech/framework used
-- Java 8
+- Java 11
 - Lombok
 - Apache Commons
 
