@@ -101,23 +101,6 @@ public class Printer {
         cells.get(1).getContext().setPaddingRight(1);
     }
 
-    //    void printPlayerTableX(Game game) {
-    //        var horizontalSeparator = new String(new char[40]).replace('\0', '\u2500');
-    //        var verticalBar = "\u2502";
-    //        var longestName = Math.max(game.getLongestPlayersName(), "Player".length()) + 1;
-    //
-    //        System.out.printf("\u250C%s\u2510\n", horizontalSeparator);
-    //        System.out.printf("%s%-"+ longestName +"s|%20s%6s\n", verticalBar, "Player", " Days to Open", verticalBar);
-    //        System.out.printf("\u250C%s\u2510\n", horizontalSeparator);
-    //
-    //        game.getPlayers().forEach(p -> System.out.printf("%s%-" + longestName + "s| %s           %s\n",
-    //                                                         verticalBar,
-    //                                                         p.getName(),
-    //                                                         String.format("%-13s", p.finalResults()),
-    //                                                         verticalBar));
-    //        System.out.println("\u2514" + horizontalSeparator + "\u2518");
-    //    }
-
     private void printFarewell() {
         System.out.println();
         System.out.println(FAREWELL);

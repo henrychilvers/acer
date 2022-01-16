@@ -45,7 +45,7 @@
 atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+**/.idea/replstate.xml
 
 # Ruby plugin and RubyMine
 /.rakeTasks
@@ -65,7 +65,7 @@ fabric.properties
 # *.ipr
 
 # Sonarlint plugin
-.idea/sonarlint
+**/.idea/sonarlint
 
 # End of https://www.gitignore.io/api/intellij
-/.idea/
+**/.idea/
