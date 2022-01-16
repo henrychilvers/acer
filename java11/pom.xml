@@ -6,10 +6,13 @@
 
     <groupId>com.chilvers.henry</groupId>
     <artifactId>acer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>Advent Calendar Enjoyment Randomizer</description>
+    <packaging>jar</packaging>
 
     <properties>
+        <jar.finalName>${project.name}</jar.finalName>
+
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,19 +23,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
+            <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok-maven</artifactId>
-            <version>1.18.10.0</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
+            <groupId>de.vandermeer</groupId>
+            <artifactId>asciitable</artifactId>
+            <version>0.3.2</version>
         </dependency>
         <dependency>
             <groupId>com.baulsupp.kolja</groupId>
@@ -58,11 +55,12 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
+                    <finalName>acer</finalName>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.chilvers.henry.AcerApplication</mainClass>
+                            <mainClass>com.chilvers.henry.acer.AcerApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

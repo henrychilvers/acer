@@ -1,4 +1,4 @@
-package com.chilvers.henry;
+package com.chilvers.henry.acer;
 
 public enum ASCIIArtFont {
     ART_FONT_DIALOG("Dialog"),
@@ -7,7 +7,7 @@ public enum ASCIIArtFont {
     ART_FONT_SERIF("Serif"),
     ART_FONT_SANS_SERIF("SansSerif");
 
-    private String value;
+    private final String value;
 
     public String getValue() {
         return value;
